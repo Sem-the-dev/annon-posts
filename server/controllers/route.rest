@@ -1,0 +1,14 @@
+GET http://localhost:3000
+
+###
+GET http://localhost:3000/posts
+
+###
+POST http://localhost:3000/posts
+Content-Type: application/json
+
+{"title": "something", "username": "Dory", "body": "hey hyey" }
+
+
+###
+GET http://localhost:3000/posts/first post-28-1
