@@ -42,8 +42,12 @@ class Post {
                 console.log(userId)               
                 let result = await db.run(SQL `INSERT INTO posts (title, unique_id, username, body) 
                                                     VALUES (${data.title}, ${userId}, ${data.username}, ${data.body} ) RETURNING * ;`);
-                let posts = result.rows.map(r => new Post(r))
-                res(posts)
+                
+                let i = result.rows.length-1
+                console.log(i)
+                let post = new Post(result.rows[i])
+                console.log(post)
+                res(post)
             } catch (err) {
                 rej(`Error retrieving posts: ${err}`)
             }
@@ -57,6 +61,7 @@ class Post {
                                                     FROM posts
                                                     WHERE posts.unique_id = ${special_id}`);
                 let post = new Post(result.rows[0])
+                console.log(post)
                 res(post)
             } catch (err) {
                 rej(`Error retrieving posts: ${err}`)
