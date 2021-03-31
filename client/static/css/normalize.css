@@ -12,6 +12,10 @@ html {
   -webkit-text-size-adjust: 100%; /* 2 */
 }
 
+.hidden{
+  display: none;
+}
+
 /**
  * Remove default margin.
  */
@@ -259,6 +263,7 @@ textarea {
   color: inherit; /* 1 */
   font: inherit; /* 2 */
   margin: 0; /* 3 */
+  resize: none;
 }
 
 /**
