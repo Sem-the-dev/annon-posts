@@ -37,6 +37,7 @@ class Post {
                 const date = dateToday.getDate();
                 const month = dateToday.getMonth()+1;
 
+                
                 const userId = `${data.title}-${date}-${month}`
                 console.log(userId)               
                 let result = await db.run(SQL `INSERT INTO posts (title, unique_id, username, body) 
