@@ -1,8 +1,11 @@
+const main = document.querySelector('section')
 const form = document.querySelector('form')
 form.addEventListener('submit', postEntry)
 
 window.addEventListener('hashchange', updateContent);
 
+console.log(form.length)
+// function check
 
 function updateContent(){
     const path = window.location.hash.substring(1).replace(/%20/g, " ");
@@ -20,6 +23,7 @@ async function postEntry(e){
         }
         const r = await fetch(`http://localhost:3000/posts/`, options)
         const data = await r.json()
+        console.log(data)
         let url = window.location.href
         let hash = '#'+data.unique_id.replace(/ /g,"%20")
         window.location.href = url+hash
@@ -32,6 +36,7 @@ async function getOnePost(uniqueId){
         try {
             const response = await fetch(`http://localhost:3000/posts/${uniqueId}`);
             const data = await response.json();
+            console.log(data.length)
             res(data);
         } catch (err) {
             rej(`Error retrieving posts: ${err}`)
@@ -39,16 +44,22 @@ async function getOnePost(uniqueId){
     })
 }
 function renderPost(postData) {
-    form.innerHTML="";
+    if (!postData.length)
+    {
+    form.classList.toggle('hidden')
     const postSection = document.createElement('div');
     const title = document.createElement('h2');
-    const username = document.createElement('h4');
+    const username = document.createElement('h3');
     const body = document.createElement('p');
     title.textContent = postData.title;
-    username.textContent = postData.username;
+    username.textContent = `Author ${postData.username}`;
     body.textContent = postData.body;
     postSection.append(title);
     postSection.append(username);
     postSection.append(body);
-    form.append(postSection);
+    main.append(postSection);
+    } else {
+    form.classList.toggle('hidden');
+    main.innerHTML = "";
+    }
 }
